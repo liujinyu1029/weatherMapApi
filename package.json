@@ -1,0 +1,26 @@
+{
+  "name": "weathermapapi",
+  "version": "1.0.0",
+  "description": "the api for weatherMap",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liujinyu1029/weatherMapApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liujinyu1029/weatherMapApi/issues"
+  },
+  "homepage": "https://github.com/liujinyu1029/weatherMapApi#readme",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-static": "^5.0.0",
+    "request": "^2.88.0"
+  }
+}
