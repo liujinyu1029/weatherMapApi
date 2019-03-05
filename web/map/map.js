@@ -1,6 +1,5 @@
 var map = new AMap.Map('container', {});
-let distanceRule = 20000 // 以固定距离取点
-let WEATHER_ICON_NUMBER = 6 //路线上打几个天气点 10个点
+let WEATHER_ICON_NUMBER = 6 //路线上打几个天气点 5个点
 
 var startLngLat = getQueryString('start').split(',')
 var endLngLat = getQueryString('end').split(',')
@@ -30,7 +29,8 @@ const getWeatherSK = (position = []) => {
 const setWeatherIcon = result => {
   // 未出错时，result即是对应的路线规划方案
   let route = (result.routes || [{}])[0]
-  let distance_5point = (route.distance / WEATHER_ICON_NUMBER).toFixed(2)
+  // 打几个点 分几段距离
+  let distance_number = (route.distance / WEATHER_ICON_NUMBER).toFixed(2)
   let stepsList = route.steps || []
   let startPoint = stepsList[0].path[0]
   var p1 = new AMap.LngLat(startPoint.lng, startPoint.lat)
@@ -39,7 +39,7 @@ const setWeatherIcon = result => {
     (step.tmcsPaths || []).forEach(tmcsPath => {
       (tmcsPath.path || []).forEach(point => {
         let p2 = new AMap.LngLat(point.lng, point.lat)
-        if (p1.distance(p2) > distance_5point) {
+        if (p1.distance(p2) > distance_number) {
           console.log('[distance]:', p1.distance(p2))
           p1 = p2
           let position = [point.lng, point.lat]
@@ -61,7 +61,6 @@ const setWeatherIcon = result => {
     })
   })
 }
-
 // 开始导航规划
 AMap.plugin('AMap.Driving', function () {
   var driving = new AMap.Driving({
